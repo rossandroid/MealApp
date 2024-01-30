@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MealCategoriesScreen() {
     val viewModel: MealCategoriesViewModel = viewModel()
+    val mealsList = viewModel.getMealList()
     Text(text = "Hello Compose!")
 }
 
