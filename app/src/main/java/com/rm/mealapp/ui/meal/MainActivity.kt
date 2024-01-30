@@ -1,15 +1,13 @@
-package com.rm.mealapp
+package com.rm.mealapp.ui.meal
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.activity.viewModels
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rm.mealapp.ui.theme.MealAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,27 +15,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MealAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+               MealCategoriesScreen()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun MealCategoriesScreen() {
+    val viewModel: MealCategoriesViewModel = viewModel()
+    Text(text = "Hello Compose!")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     MealAppTheme {
-        Greeting("Android")
+        MealCategoriesScreen()
     }
 }
