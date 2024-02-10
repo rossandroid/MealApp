@@ -42,7 +42,7 @@ import com.rm.model.response.MealResponse
 
 
 @Composable
-fun MealCategoriesScreen() {
+fun MealCategoriesScreen(navigationCallback: (String) -> Unit) {
     val viewModel: MealCategoriesViewModel = viewModel()
     val meals = viewModel.mealsState.value
 
@@ -57,7 +57,7 @@ fun MealCategoriesScreen() {
         )
         LazyColumn(contentPadding = PaddingValues(16.dp)) {
             items(meals) { meal->
-                MealCategory(meal)
+                MealCategory(meal, navigationCallback)
             }
         }
     }
@@ -65,7 +65,7 @@ fun MealCategoriesScreen() {
 
 }
 @Composable
-fun MealCategory(meal: MealResponse){
+fun MealCategory(meal: MealResponse , navigationCallback: (String) -> Unit){
     var isExpanded by remember { mutableStateOf(false) }
     ElevatedCard(
         shape = RoundedCornerShape(8.dp),
@@ -75,6 +75,9 @@ fun MealCategory(meal: MealResponse){
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
+            .clickable {
+                navigationCallback(meal.id)
+            }
     ) {
         Row {
             Image(
@@ -125,6 +128,6 @@ fun MealCategory(meal: MealResponse){
 @Composable
 fun DefaultPreview() {
     MealAppTheme {
-        MealCategoriesScreen()
+        MealCategoriesScreen({})
     }
 }
