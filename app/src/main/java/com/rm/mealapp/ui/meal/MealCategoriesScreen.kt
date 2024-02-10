@@ -28,12 +28,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
+import com.rm.mealapp.R
 import com.rm.mealapp.ui.theme.MealAppTheme
 import com.rm.model.response.MealResponse
 
@@ -43,11 +46,22 @@ fun MealCategoriesScreen() {
     val viewModel: MealCategoriesViewModel = viewModel()
     val meals = viewModel.mealsState.value
 
-    LazyColumn(contentPadding = PaddingValues(16.dp)) {
-        items(meals) { meal->
-            MealCategory(meal)
+    Column() {
+        Text(
+            text = stringResource(R.string.list_title),
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .padding(10.dp)
+                .align(Alignment.CenterHorizontally)
+        )
+        LazyColumn(contentPadding = PaddingValues(16.dp)) {
+            items(meals) { meal->
+                MealCategory(meal)
+            }
         }
     }
+
 
 }
 @Composable
@@ -68,17 +82,17 @@ fun MealCategory(meal: MealResponse){
                 contentDescription = null,
                 modifier = Modifier
                     .size(88.dp)
-                    .padding(4.dp)
+                    .padding(5.dp)
             )
             Column(
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .fillMaxWidth(0.8f)
-                    .padding(16.dp)
+                    .padding(10.dp)
             ) {
                 Text(
                     text = meal.name,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.headlineSmall
                 )
 
                 CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurface) {
@@ -94,10 +108,12 @@ fun MealCategory(meal: MealResponse){
                 contentDescription = "Expand row icon",
                 modifier = Modifier
                     .padding(16.dp)
-                    .align(if (isExpanded)
-                        Alignment.Bottom
-                    else
-                        Alignment.CenterVertically)
+                    .align(
+                        if (isExpanded)
+                            Alignment.Bottom
+                        else
+                            Alignment.CenterVertically
+                    )
                     .clickable { isExpanded = !isExpanded }
             )
         }

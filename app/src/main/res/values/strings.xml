@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MealApp</string>
+
+    <string name="list_title">Meals</string>
 </resources>
